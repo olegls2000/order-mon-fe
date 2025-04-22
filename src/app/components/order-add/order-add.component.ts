@@ -1,6 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, input, signal } from '@angular/core';
+import { Component, inject, input, signal } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CountryService } from '../../services/country.service';
+import { OrderService } from '../../services/order.service';
+import { OrderServiceMock } from '../../services/order.service-mock';
+import { CurrencyService } from '../../services/currency.service';
+import { Country } from '../../model/country.type';
+import { Currency } from '../../model/currency.type';
 
 @Component({
   selector: 'app-order-add',
@@ -10,6 +16,14 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 })
 
 export class OrderAddComponent {
+
+  orderService: OrderService = inject(OrderServiceMock);
+  countryService: CountryService = inject(CountryService);
+  currencyService: CurrencyService = inject(CurrencyService);
+
+  countries: Array<Country> = this.countryService.getAll();
+  currencies: Array<Currency> = this.currencyService.getAll();
+
   orderAddForm: FormGroup = new FormGroup({
     orderNumber: new FormControl(''),
     country: new FormControl(''),
@@ -23,10 +37,6 @@ export class OrderAddComponent {
 
   submitForm(event: Event) {
     console.log(this.orderAddForm.value)
-    //    if (this.orderAddForm.valid) {
-    //      console.log('Form Data:', this.orderAddForm.value);
-    //    } else {
-    //      console.log('Form Invalid');
-    //    }
+    this.orderService.createOrder(this.orderAddForm.value)
   }
 }
