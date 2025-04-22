@@ -1,0 +1,28 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Order Number</th>
+            <th scope="col">Country</th>
+            <th scope="col">Street Addreress</th>
+            <th scope="col">Town</th>
+            <th scope="col">Payment description</th>
+            <th scope="col">Payment due date</th>
+            <th scope="col">Anount</th>
+            <th scope="col">Currency</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (order of orders(); track order.id) {
+            <tr>
+                <td>{{order.orderNumber}}</td>
+                <td>{{order.country}}</td>
+                <td>{{order.streeetAddress}}</td>
+                <td>{{order.town}}</td>
+                <td>{{order.paymentDescription}}</td>
+                <td>{{order.paymentDueDate}}</td>
+                <td>{{order.amount}}</td>
+                <td>{{order.currency}}</td>
+              </tr>
+        }
+    </tbody>
+</table>
