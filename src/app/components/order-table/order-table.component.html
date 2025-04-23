@@ -1,18 +1,27 @@
 <form [formGroup]="orderSearchForm" (ngSubmit)="submitForm($event)">
-        <input formControlName="description" 
-        class="form-control me-2" 
-        type="search"
-         placeholder="Input description" 
-         aria-label="Search">
-        <label for="countryId">Country:</label>
-        <select id="countryId" class="form-control" formControlName="country">
-            <option value=""> Select country </option>
-            <option *ngFor="let c of countries" [value]="c.code">{{ c.name }}</option>
-        </select>
-        <button class="btn btn-outline-success" type="submit">Search</button>
+    <div class="row">
+        <div class="col-6">
+            <label for="descriptionId">Description:</label>
+            <input formControlName="description"  id="descriptionId"
+            class="form-control me-2" 
+            type="search"
+             placeholder="Input description" 
+             aria-label="Search">
+        </div>
+        <div class="col-6">
+            <label for="countryId">Country:</label>
+            <select id="countryId" class="form-control" formControlName="country">
+                <option value=""> Select country </option>
+                <option *ngFor="let c of countries" [value]="c.code">{{ c.name }}</option>
+            </select>
+        </div>
+    </div>
+        <div class="d-flex justify-content-center align-items-center">
+            <button class="btn btn-outline-success mt-3" type="submit">Search</button>
+          </div>
 </form>
 
-<table class="table">
+<table class="table mt-3">
     <thead>
         <tr>
             <th scope="col">Order Number</th>
@@ -29,11 +38,11 @@
         @for (order of orders(); track order.id) {
         <tr>
             <td>{{order.orderNumber}}</td>
-            <td>{{order.country}}</td>
+            <td>{{order.countryCode}}</td>
             <td>{{order.streeetAddress}}</td>
             <td>{{order.town}}</td>
             <td>{{order.paymentDescription}}</td>
-            <td>{{order.paymentDueDate}}</td>
+            <td>{{order.paymentDueDate | date:'yyyy-MM-dd' }}</td>
             <td>{{order.amount}}</td>
             <td>{{order.currency}}</td>
         </tr>

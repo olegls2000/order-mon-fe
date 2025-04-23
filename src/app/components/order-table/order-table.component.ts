@@ -40,12 +40,12 @@ export class OrderTableComponent implements OnInit {
 
   private sortOrdersByPaymentDueDateWithEstonianPriority(orders: Order[]): Order[] {
    return orders.sort((order1, order2) => {
-      if (order1.country === order2.country) {
+      if (order1.countryCode === order2.countryCode) {
         return order2.paymentDueDate.getDate() - order1.paymentDueDate.getDate();
       } else {
-        if (order1.country === 'EE') {
+        if (order1.countryCode === 'EE') {
           return -1;
-        } else if (order2.country === 'EE') {
+        } else if (order2.countryCode === 'EE') {
           return 1;
         }
         return order2.paymentDueDate.getDate() - order1.paymentDueDate.getDate();

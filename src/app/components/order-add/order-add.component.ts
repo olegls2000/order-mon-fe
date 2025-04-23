@@ -6,7 +6,7 @@ import { OrderService } from '../../services/order.service';
 import { OrderServiceMock } from '../../services/order.service-mock';
 import { CurrencyService } from '../../services/currency.service';
 import { Country } from '../../model/country.type';
-import { Currency } from '../../model/currency.type';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-order-add',
@@ -19,9 +19,10 @@ export class OrderAddComponent {
   orderService: OrderService = inject(OrderServiceMock);
   countryService: CountryService = inject(CountryService);
   currencyService: CurrencyService = inject(CurrencyService);
+  router: Router = inject(Router)
 
   countries: Array<Country> = this.countryService.getAll();
-  currencies: Array<Currency> = this.currencyService.getAll();
+  currencies = this.currencyService.getAllCurrencies();
 
   orderAddForm: FormGroup = new FormGroup({
     orderNumber: new FormControl('', [Validators.required]),
@@ -34,11 +35,10 @@ export class OrderAddComponent {
     currency: new FormControl('', [Validators.required])
   });
 
-  submitForm(event: Event) {
+  onSubmit(): void {
     if (this.orderAddForm.valid) {
       this.orderService.createOrder(this.orderAddForm.value)
-      return
+      this.router.navigate(['/orders']);
     }
-    this.orderAddForm.markAllAsTouched();
   }
 }

@@ -3,6 +3,7 @@ import { Order } from '../model/order.type';
 import { of } from 'rxjs/internal/observable/of';
 import { Observable } from 'rxjs';
 import { OrderService } from './order.service';
+import { Currency } from '../model/currency.type';
 
 
 @Injectable({
@@ -14,36 +15,36 @@ export class OrderServiceMock implements OrderService {
     {
       id: 1,
       orderNumber: "34-we",
-      country: "EE",
+      countryCode: "EE",
       streeetAddress: "Lootsi, 4",
       town: "Tallinn",
       paymentDescription: "Invoice TT ...",
-      paymentDueDate: new Date('2025-12-24T10'),
+      paymentDueDate: new Date('2025-12-24'),
       amount: 56,
-      currency: "EUR"
+      currency: Currency.EUR
     },
     {
       id: 2,
       orderNumber: "34-wx",
-      country: "EE",
+      countryCode: "EE",
       streeetAddress: "Lootsi, 4",
       town: "Tallinn",
       paymentDescription: "Invoice UU ...",
-      paymentDueDate: new Date('2025-12-24T10'),
+      paymentDueDate: new Date('2025-12-24'),
       amount: 56,
-      currency: "EUR"
+      currency: Currency.EUR
     }
     ,
     {
       id: 3,
       orderNumber: "56-wx",
-      country: "FI",
+      countryCode: "FI",
       streeetAddress: "Lootsi, 4",
       town: "Helsinki",
       paymentDescription: "Invoice LL ...",
-      paymentDueDate: new Date('2025-12-24T10'),
+      paymentDueDate: new Date('2025-12-24'),
       amount: 56,
-      currency: "EUR"
+      currency: Currency.EUR
     }
   ];
 
@@ -54,7 +55,7 @@ export class OrderServiceMock implements OrderService {
   getAllOrdersBySearchCriteria(countryCode?: string, description?: string): Array<Order> {
     return this.mockOrders.filter(order => {
       if (countryCode) {
-        return order.country === countryCode;
+        return order.countryCode === countryCode;
       }
       return true;
     })

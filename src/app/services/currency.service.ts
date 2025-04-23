@@ -6,14 +6,8 @@ import { Currency } from '../model/currency.type';
 })
 export class CurrencyService {
 
-    getAll(): Array<Currency> {
-        return [{
-            code: 'EUR',
-            name: 'Euro'
-        },
-        {
-            code: 'USD',
-            name: 'US Dollar'
-        }]
+    getAllCurrencies(): Array<{ code: string, name: string }> {
+        return Object.entries(Currency)
+            .map(([label, value]) => ({ code: label, name: value }));
     }
 }
