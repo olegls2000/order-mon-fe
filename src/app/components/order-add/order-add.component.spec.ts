@@ -2,6 +2,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { OrderAddComponent } from './order-add.component';
 
+
+//TODO add unit tests
+
 describe('OrderAddComponent', () => {
   let component: OrderAddComponent;
   let fixture: ComponentFixture<OrderAddComponent>;

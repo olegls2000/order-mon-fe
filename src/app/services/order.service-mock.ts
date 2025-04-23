@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { OrderService } from './order.service';
 
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -15,10 +14,10 @@ export class OrderServiceMock implements OrderService {
     {
       id: 1,
       orderNumber: "34-we",
-      country: "Estonia",
+      country: "EE",
       streeetAddress: "Lootsi, 4",
       town: "Tallinn",
-      paymentDescription: "Invoice Payment ...",
+      paymentDescription: "Invoice TT ...",
       paymentDueDate: new Date('2025-12-24T10'),
       amount: 56,
       currency: "EUR"
@@ -26,10 +25,22 @@ export class OrderServiceMock implements OrderService {
     {
       id: 2,
       orderNumber: "34-wx",
-      country: "Estonia",
+      country: "EE",
       streeetAddress: "Lootsi, 4",
       town: "Tallinn",
-      paymentDescription: "Invoice Payment ...",
+      paymentDescription: "Invoice UU ...",
+      paymentDueDate: new Date('2025-12-24T10'),
+      amount: 56,
+      currency: "EUR"
+    }
+    ,
+    {
+      id: 3,
+      orderNumber: "56-wx",
+      country: "FI",
+      streeetAddress: "Lootsi, 4",
+      town: "Helsinki",
+      paymentDescription: "Invoice LL ...",
       paymentDueDate: new Date('2025-12-24T10'),
       amount: 56,
       currency: "EUR"
@@ -38,6 +49,21 @@ export class OrderServiceMock implements OrderService {
 
   getAllOrders(): Array<Order> {
     return this.mockOrders;
+  }
+
+  getAllOrdersBySearchCriteria(countryCode?: string, description?: string): Array<Order> {
+    return this.mockOrders.filter(order => {
+      if (countryCode) {
+        return order.country === countryCode;
+      }
+      return true;
+    })
+      .filter(order => {
+        if (description) {
+          return order.paymentDescription.includes(description);
+        }
+        return true;
+      });
   }
 
   createOrder(order: Order): void {

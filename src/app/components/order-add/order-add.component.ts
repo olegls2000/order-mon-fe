@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, input, signal } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CountryService } from '../../services/country.service';
 import { OrderService } from '../../services/order.service';
 import { OrderServiceMock } from '../../services/order.service-mock';
@@ -11,8 +11,7 @@ import { Currency } from '../../model/currency.type';
 @Component({
   selector: 'app-order-add',
   imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './order-add.component.html',
-  styleUrl: './order-add.component.scss'
+  templateUrl: './order-add.component.html'
 })
 
 export class OrderAddComponent {
@@ -25,18 +24,21 @@ export class OrderAddComponent {
   currencies: Array<Currency> = this.currencyService.getAll();
 
   orderAddForm: FormGroup = new FormGroup({
-    orderNumber: new FormControl(''),
-    country: new FormControl(''),
-    streetAddress: new FormControl(''),
-    town: new FormControl(''),
-    paymentDescription: new FormControl(''),
-    paymentDueDate: new FormControl(''),
-    amount: new FormControl(''),
-    currency: new FormControl('')
+    orderNumber: new FormControl('', [Validators.required]),
+    country: new FormControl('', [Validators.required]),
+    streetAddress: new FormControl('', [Validators.required]),
+    town: new FormControl('', [Validators.required]),
+    paymentDescription: new FormControl('', [Validators.required]),
+    paymentDueDate: new FormControl('', [Validators.required]),
+    amount: new FormControl('', [Validators.required]),
+    currency: new FormControl('', [Validators.required])
   });
 
   submitForm(event: Event) {
-    console.log(this.orderAddForm.value)
-    this.orderService.createOrder(this.orderAddForm.value)
+    if (this.orderAddForm.valid) {
+      this.orderService.createOrder(this.orderAddForm.value)
+      return
+    }
+    this.orderAddForm.markAllAsTouched();
   }
 }

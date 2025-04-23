@@ -1,7 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Order } from '../model/order.type';
 import { HttpClient } from '@angular/common/http';
-import { of } from 'rxjs/internal/observable/of';
 import { catchError, Observable } from 'rxjs';
 import { OrderService } from './order.service';
 
@@ -10,13 +9,12 @@ import { OrderService } from './order.service';
   providedIn: 'root'
 })
 export class OrderServiceApi implements OrderService {
-  http = inject(HttpClient);
-  private apiUrl = `https://127.0.0.1/api/orders`
+  private http = inject(HttpClient);
+  private apiUrl = `https://127.0.0.1:8000/api/orders`
 
-
-  getAllOrders(): Array<Order> {
+ async getAllOrders(): Observable<Array<Order>> {
     let orders: Array<Order> = [];
-    this.http.get<Array<Order>>(this.apiUrl).pipe(
+   return this.http.get<Array<Order>>(this.apiUrl).pipe(
       catchError(error => {
         console.log(error);
         throw error;

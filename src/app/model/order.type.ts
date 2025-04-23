@@ -5,7 +5,7 @@ export type Order = {
     streeetAddress: string;
     town: string;
     paymentDescription: string;
-    paymentDueDate: Date;
+    paymentDueDate: Date; 
     amount: number;
     currency: string;
 }

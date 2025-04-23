@@ -1,3 +1,17 @@
+<form [formGroup]="orderSearchForm" (ngSubmit)="submitForm($event)">
+        <input formControlName="description" 
+        class="form-control me-2" 
+        type="search"
+         placeholder="Input description" 
+         aria-label="Search">
+        <label for="countryId">Country:</label>
+        <select id="countryId" class="form-control" formControlName="country">
+            <option value=""> Select country </option>
+            <option *ngFor="let c of countries" [value]="c.code">{{ c.name }}</option>
+        </select>
+        <button class="btn btn-outline-success" type="submit">Search</button>
+</form>
+
 <table class="table">
     <thead>
         <tr>
@@ -13,16 +27,16 @@
     </thead>
     <tbody>
         @for (order of orders(); track order.id) {
-            <tr>
-                <td>{{order.orderNumber}}</td>
-                <td>{{order.country}}</td>
-                <td>{{order.streeetAddress}}</td>
-                <td>{{order.town}}</td>
-                <td>{{order.paymentDescription}}</td>
-                <td>{{order.paymentDueDate}}</td>
-                <td>{{order.amount}}</td>
-                <td>{{order.currency}}</td>
-              </tr>
+        <tr>
+            <td>{{order.orderNumber}}</td>
+            <td>{{order.country}}</td>
+            <td>{{order.streeetAddress}}</td>
+            <td>{{order.town}}</td>
+            <td>{{order.paymentDescription}}</td>
+            <td>{{order.paymentDueDate}}</td>
+            <td>{{order.amount}}</td>
+            <td>{{order.currency}}</td>
+        </tr>
         }
     </tbody>
 </table>
